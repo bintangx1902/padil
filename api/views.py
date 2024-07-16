@@ -4,11 +4,14 @@ import os
 import pandas as pd
 from django.conf import settings
 from rest_framework import status
+from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 
 class GetResult(APIView):
+    renderer_classes = [JSONRenderer, ]
+
     def get(self, *args, **kwargs):
         df = pd.read_excel(os.path.join(settings.MEDIA_ROOT, 'data.xlsx'))
         day = self.request.GET.get('day')
